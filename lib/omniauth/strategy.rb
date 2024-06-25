@@ -195,7 +195,7 @@ module OmniAuth
         return other_phase if respond_to?(:other_phase)
       rescue StandardError => e
         raise e if env.delete('omniauth.error.app')
-
+        Sentry.capture_exception(e)
         return fail!(e.message, e)
       end
 
